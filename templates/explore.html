@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jelajahi - BodyMap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            font-size: 16px;
+        }
+
+        header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 20px 80px;
+            background-color: #f1f1f9;
+            box-shadow: 0 4px 12px #6b3d7f;
+        }
+
+        header .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #6b3d7f;
+            margin-right: auto;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #6b3d7f;
+            font-weight: 600;
+            padding: 8px 20px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #95c9cd;
+        }
+
+        .explore-container {
+            padding: 40px 80px;
+        }
+
+        .explore-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .explore-header h1 {
+            font-size: 48px;
+            color: #6b3d7f;
+        }
+
+        .articles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .article-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .article-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .article-content {
+            padding: 20px;
+        }
+
+        .article-content h2 {
+            font-size: 20px;
+            color: #6b3d7f;
+            margin-bottom: 10px;
+        }
+
+        .article-content p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .read-more {
+            text-decoration: none;
+            color: #6b3d7f;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .read-more:hover {
+            color: #95c9cd;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #95c9cd;
+            color: white;
+        }
+
+
+        .videos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .video-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .video-card iframe {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .video-content {
+            padding: 20px;
+        }
+
+        .video-content h2 {
+            font-size: 20px;
+            color: #6b3d7f;
+            margin-bottom: 10px;
+        }
+
+        .video-content p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;  /* Menyebarkan elemen kiri dan kanan */
+            align-items: center;
+            padding: 20px 80px;
+            background-color: #f1f1f9;
+            box-shadow: 0 4px 12px #6b3d7f;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            width: 40px; /* Ukuran logo */
+            height: 40px;
+            margin-right: 10px; /* Spasi antara logo dan teks */
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: #6b3d7f;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #6b3d7f;
+            font-weight: 600;
+            padding: 8px 20px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #95c9cd;
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='image/logobodymap.png') }}" alt="BodyMap Logo" class="logo-img">
+        <div class="logo-text">BodyMap</div>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('check') }}">Body Fat Check</a></li>
+            <li><a href="{{ url_for('explore') }}">Explore</a></li>
+            <li><a href="{{ url_for('about_us') }}">About Us</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+<section class="explore-container">
+    <div class="explore-header">
+        <h1>Artikel Kesehatan & Kebugaran</h1>
+        <p>Temukan tips dan wawasan terbaru untuk meningkatkan kesehatan serta kesejahteraan Anda.</p>
+    </div>
+
+    <!-- Bagian Artikel -->
+    <div class="articles">
+        <!-- Artikel 1 -->
+        <div class="article-card">
+            <img src="{{ url_for('static', filename='image/artikel1.jpg') }}" alt="Your Image" alt="Lemak Tubuh Ideal">
+            <div class="article-content">
+                <h2>Berapakah Persentase Lemak Tubuh yang Ideal?</h2>
+                <p>Pahami persentase lemak tubuh yang sehat seiring bertambahnya usia.</p>
+                <a href="https://www.health.harvard.edu/staying-healthy/what-is-considered-a-healthy-body-fat-percentage-as-you-age" class="read-more">Baca Selengkapnya</a>
+            </div>
+        </div>
+
+        <!-- Artikel 2 -->
+        <div class="article-card">
+            <img src="{{ url_for('static', filename='image/artikel2.jpg') }}" alt="Komposisi Tubuh">
+            <div class="article-content">
+                <h2>Ketahui Komposisi Lemak Tubuh Ideal</h2>
+                <p>Pelajari bagaimana komposisi tubuh yang sehat memengaruhi kesehatan Anda.</p>
+                <a href="https://www.halodoc.com/artikel/ketahui-komposisi-lemak-tubuh-yang-ideal-agar-tetap-sehat" class="read-more">Baca Selengkapnya</a>
+            </div>
+        </div>
+
+        <!-- Artikel 3 -->
+        <div class="article-card">
+            <img src="{{ url_for('static', filename='image/artikel3.jpg') }}" alt="Gaya Hidup Sehat">
+            <div class="article-content">
+                <h2>6 Cara Menjaga Gaya Hidup Sehat</h2>
+                <p>Temukan langkah mudah untuk menerapkan pola hidup sehat setiap hari.</p>
+                <a href="https://www.halodoc.com/artikel/6-cara-mudah-menjaga-gaya-hidup-sehat?srsltid=AfmBOor6E_LsC1oCENELAKeJwd_5kbZj9MMnmvzpKGA7gDaN5m_cXAdF" class="read-more">Baca Selengkapnya</a>
+            </div>
+        </div>
+
+        <!-- Artikel 4 -->
+        <div class="article-card">
+            <img src="{{ url_for('static', filename='image/artikel4.jpg') }}" alt="Olahraga Ringan">
+            <div class="article-content">
+                <h2>Olahraga Ringan yang Bisa Dilakukan di Rumah</h2>
+                <p>Cari tahu aktivitas olahraga sederhana untuk menjaga kebugaran tubuh Anda di rumah.</p>
+                <a href="https://www.ruparupa.com/ms/artikel-olahraga-ringan-yang-dapat-dilakukan-di-rumah" class="read-more">Baca Selengkapnya</a>
+            </div>
+        </div>
+
+        <!-- Artikel 5 -->
+        <div class="article-card">
+            <img src="{{ url_for('static', filename='image/artikel5.jpg') }}" alt="Olahraga Rekomendasi">
+            <div class="article-content">
+                <h2>Rekomendasi Olahraga Ringan untuk Tubuh Bugar</h2>
+                <p>Berbagai pilihan olahraga ringan yang praktis dan efektif menjaga kebugaran tubuh.</p>
+                <a href="https://www.inews.id/sport/all-sport/7-rekomendasi-olahraga-ringan-di-rumah-dijamin-bikin-tubuh-bugar" class="read-more">Baca Selengkapnya</a>
+            </div>
+        </div>
+
+        <!-- Artikel 1 -->
+        <div class="article-card">
+            <img src="{{ url_for('static', filename='image/artikel6.jpg') }}" alt="Tips Diet Sehat">
+            <div class="article-content">
+                <h2>5 Tips Diet Sehat untuk Menurunkan Berat Badan</h2>
+                <p>Langkah-langkah sederhana untuk menurunkan berat badan dengan cara yang sehat dan efektif.</p>
+                <a href="https://www.biofarma.co.id/id/announcement/detail/5-tips-diet-sehat-untun-menurunkan-berat-badan" class="read-more">Baca Selengkapnya</a>
+            </div>
+        </div>
+
+        <!-- Artikel 2 -->
+        <div class="article-card">
+            <img src="{{ url_for('static', filename='image/artikel7.avif') }}" alt="Cara Diet Sehat">
+            <div class="article-content">
+                <h2>Cara Diet Sehat yang Bisa Anda Coba</h2>
+                <p>Panduan diet sehat yang cocok untuk Anda yang ingin menjaga pola makan seimbang.</p>
+                <a href="https://www.budisehat.com/caradietsehat" class="read-more">Baca Selengkapnya</a>
+            </div>
+        </div>
+
+        <!-- Artikel 3 -->
+        <div class="article-card">
+            <img src="{{ url_for('static', filename='image/artikel8.jpg') }}" alt="Tips Diet Menyehatkan">
+            <div class="article-content">
+                <h2>Artikel Tips Diet yang Menyehatkan</h2>
+                <p>Tips diet sehat yang dapat meningkatkan kualitas hidup dan menjaga kesehatan tubuh Anda.</p>
+                <a href="https://www.ruparupa.com/ms/artikel-tips-diet-yang-menyehatkan" class="read-more">Baca Selengkapnya</a>
+            </div>
+        </div>
+
+        <!-- Artikel 4 -->
+        <div class="article-card">
+            <img src="{{ url_for('static', filename='image/artikel9.jpg') }}" alt="Makanan Sehat dan Bergizi">
+            <div class="article-content">
+                <h2>Makanan Sehat dan Bergizi untuk Menunjang Diet</h2>
+                <p>Mengetahui jenis makanan sehat yang dapat mendukung diet dan menjaga tubuh tetap bugar.</p>
+                <a href="https://yavabali.com/makanan-sehat-dan-bergizi" class="read-more">Baca Selengkapnya</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bagian Video -->
+    <div class="explore-header">
+        <h1>Video Kesehatan & Kebugaran</h1>
+        <p>Temukan video edukatif tentang kesehatan dan kebugaran untuk mendalami topik lebih lanjut.</p>
+    </div>
+    <div class="videos">
+        <!-- Video 1 -->
+        <div class="video-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/1AGiq77wZ9c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-content">
+                <h2>Pemanasan Sebelum Beraktifitas</h2>
+                <p>Rutinitas peregangan selama 8 menit yang sempurna untuk pemanasan harian atau peregangan sebelum berolahraga!.</p>
+            </div>
+        </div>
+
+        <!-- Video 2 -->
+        <div class="video-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/ZFEj0cWxw08" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-content">
+                <h2>Membuat Wajah Kecil dan Membentuk V-line</h2>
+                <p>Video ini akan membuat wajah anda lebih tirus dan garis V hanya dalam 7 menit sehari!! ikuti setiap hari mulai hari ini!.</p>
+            </div>
+            </div>
+
+        <!-- Video 3 -->
+        <div class="video-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/KqtWdZPbu1w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-content">
+                <h2>Hilangkan Seluruh Lemak Tubuh dalam 7 Hari</h2>
+                <p>Latihan Berdiri 30 Menit - Tanpa Jongkok, Tanpa Lunge, Tanpa Lompat</p>
+            </div>
+        </div>
+
+        <!-- Video 4 -->
+        <div class="video-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/sMIatEvTACI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-content">
+                <h2>Latihan Kardio 30 Menit untuk Mengurangi Berat Badan</h2>
+                <p>Hari ini, saya sudah menyiapkan latihan kardio jalan kaki dengan intensitas rendah yang sempurna untuk dilakukan setelah makan!.</p>
+            </div>
+        </div>
+
+        <!-- Video 5 -->
+        <div class="video-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/9g4z0gFlfpA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-content">
+                <h2>Olahraga Pagi dalam 10 Menit</h2>
+                <p>Olahraga pagi ini adalah cara yang sempurna untuk menggerakkan tubuh Anda. Tidak terlalu berat sehingga Anda bisa bangun dan tetap mengenakan piyama.</p>
+            </div>
+        </div>
+
+        <!-- Video 1 -->
+        <div class="video-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/clFxY3p6Hsw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-content">
+                <h2>Lakukan 30 Menit Pilates di Rumah</h2>
+                <p>Pelajari pilates di rumah hanya 30 menit tanpa alat dan tanpa melompat.</p>
+            </div>
+        </div>
+
+        <!-- Video 2 -->
+        <div class="video-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/KJy5lylf2qs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-content">
+                <h2>Olahraga untuk Redakan Nyeri Punggung</h2>
+                <p>10 menit gerakan untuk menyembuhkan nyeri punggung di rumah.</p>
+            </div>
+        </div>
+
+        <!-- Video 3 -->
+        <div class="video-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/W4eKVKwf3rQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-content">
+                <h2>Membakar Seluruh Lemak Tubuh dalam 30 Menit</h2>
+                <p>Workout rutin 30 menit untuk emmbakar lemak seluruh tubuh tanpa melompat.</p>
+            </div>
+        </div>
+
+        <!-- Video 4 -->
+        <div class="video-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/QKCkO9fy9O4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-content">
+                <h2>Workout untuk Membentuk ABS dalam 10 Menit</h2>
+                <p>Lakukan Workout ini secara rutin dan dapatkan ABS dan pinggang ramping dalam 30 hari.</p>
+            </div>
+        </div>
+
+        <!-- Video 5 -->
+        <div class="video-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/QYcw8QbYj8o" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-content">
+                <h2>5 Resep Makanan Sehat Rendah Kalori</h2>
+                <p>Temukan resep makanan sehat dan enak rendah kalori untuk mengurangi berat badan.</p>
+            </div>
+        </div>
+
+        <!-- Video 6 -->
+        <div class="video-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/riS89biXH7E" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-content">
+                <h2>Perbaiki dan Luruskan Punggung Anda</h2>
+                <p>Pelajari cara meluruskan punggung dan membenarkan postur tubuh dalam 10 menit.</p>
+            </div>
+        </div>
+
+        <!-- Video 7 -->
+        <div class="video-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/aYVg_Lk2xLA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-content">
+                <h2>Face Lift Massage untuk Mengencangkan Wajah</h2>
+                <p>Temukan cara-cara mudah untuk mengencangkan, menghilangkan double-chin, dan wajah awet muda.</p>
+            </div>
+        </div>
+
+        <!-- Video 9 -->
+        <div class="video-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/nc39oat3deI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-content">
+                <h2>Rencana Diet untuk Menurunkan Berat Badan</h2>
+                <p>Pelajari cara menurunkan berat badan dalam 2 minggu.</p>
+            </div>
+        </div>
+
+        <!-- Video 10 -->
+        <div class="video-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/5xQ7xdNVDSE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-content">
+                <h2>10 Resep Diet Mediterrania untuk Pemula</h2>
+                <p>Dalam video ini kami membagikan kepada Anda 10 resep Diet Mediterania yang sederhana dan lezat yang menampilkan makanan utama Diet Mediterania.</p>
+            </div>
+        </div>
+
+        <!-- Video 11 -->
+        <div class="video-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/wkg_AyHE82w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-content">
+                <h2>4 Resep Ayam Simple untuk Sehari-hari </h2>
+                <p>Jadikan hidup lebih mudah dengan menambahkan rasa unik pada hidangan sederhana!.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+<footer>
+    <p>&copy; 2024 BodyMap. Seluruh Hak Cipta Dilindungi.</p>
+</footer>
+
+</body>
+</html>

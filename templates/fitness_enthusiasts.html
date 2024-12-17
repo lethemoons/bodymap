@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BodyMap - Your Personal Body Fat Checker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f9f9ff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 20px 80px;
+            background-color: #6b417e;
+            box-shadow: 0 4px 12px #6b3d7f;
+        }
+
+        header .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #95c9cd;
+            margin-right: auto;
+        }
+
+        header .logo img {
+            max-width: 50px;
+            height: auto;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #95c9cd;
+            font-weight: 600;
+            padding: 8px 20px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #FFFFFF;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 40px 20px;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 10px;
+            margin: 20px auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #6b417e;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 50px;
+            color: #6b417e;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        /* Persentase Lemak */
+        .result-container {
+            max-width: 70%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #e2e2f0;
+            border-radius: 10px;
+        }
+
+        .result-container .percentage {
+            font-size: 72px;
+            font-weight: 700;
+            color: #6b417e;
+            margin-bottom: 10px;
+        }
+
+        .result-container .category {
+            font-size: 24px;
+            font-weight: 600;
+            color: #ff4081;
+        }
+
+        .result-container .description {
+            font-size: 16px;
+            color: #ff4081;
+            margin-top: 10px;
+        }
+
+        .result-container .body-fat-bar {
+            height: 30px;
+            width: 100%;
+            background-color: #d3d3d3;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .result-container .body-fat-bar .fill {
+            height: 100%;
+            border-radius: 5px;
+            background-color: #ff4081;
+        }
+
+        .result-container .focus {
+            font-size: 18px;
+            color: #6b417e;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        /* Akibat Kekurangan Lemak */
+        .akibat-lemak .list-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            text-align: left;
+        }
+
+        .akibat-lemak .list-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .akibat-lemak ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .akibat-lemak ul li {
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            color: #333;
+        }
+
+        .akibat-lemak ul li::before {
+            content: "•";
+            color: #ff4081;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        /* Gaya Hidup Sehat & YouTube Rekomendasi */
+        .kontainer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .kartu {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .kartu img {
+            width: 100%;
+            border-radius: 10px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        iframe {
+            border-radius: 10px;
+        }
+
+        .youtube-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 kolom per baris */
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .video-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+        }
+
+        .video-card h3 {
+            font-size: 16px;
+            color: #6b417e;
+            margin-bottom: 10px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+        }
+
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #95c9cd;
+            color: #fff;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;  /* Menyebarkan elemen kiri dan kanan */
+            align-items: center;
+            padding: 20px 80px;
+            background-color: #f1f1f9;
+            box-shadow: 0 4px 12px #6b3d7f;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            width: 40px; /* Ukuran logo */
+            height: 40px;
+            margin-right: 10px; /* Spasi antara logo dan teks */
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: #6b3d7f;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #6b3d7f;
+            font-weight: 600;
+            padding: 8px 20px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #95c9cd;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='image/logobodymap.png') }}" alt="BodyMap Logo" class="logo-img">
+            <div class="logo-text">BodyMap</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('check') }}">Body Fat Check</a></li>
+                <li><a href="{{ url_for('explore') }}">Explore</a></li>
+                <li><a href="{{ url_for('about_us') }}">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Section: Persentase Lemak Tubuh -->
+    <section>
+        <h1>Persentase Lemak Tubuh Anda adalah</h1>
+        <div class="result-container">
+            <h2> <span id = "bodypercentage"> {{ bodyfat_percentage }}% </span></h2>
+            <div class="category">Fitness Enthusiasts</div>
+            <div class="description">Laki-laki: 14-17% | Perempuan: 21-24%
+            </div>
+            <div class="body-fat-bar">
+                <div class="fill" id="bodyFatBarFill" style="width: {{ bodyfat_percentage }}%; background-color: {% if bodyfat_percentage > 30 %} #ff4081 {% else %} #6b417e {% endif %};"></div>
+            </div>
+            <div class="focus">Berdasarkan persentase lemak, Anda memiliki tubuh yang bugar
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Akibat Kekurangan Lemak -->
+    <section class="akibat-lemak">
+        <h2>Kondisi Tubuh Anda</h2>
+        <p>Persentase lemak tubuh Anda termasuk dalam kategori Bugar/Rajin Berolahraga. Orang dalam kategori ini dapat dikatakan memiliki persentase lemak tubuh yang sehat. Namun, Anda dapat mempertimbangkan apakah Anda ingin menurunkan, mempertahankan, atau meningkatkan proporsi lemak tubuh Anda.
+        </p>
+        <p>Jika Anda merasa mengalami tanda-tanda kekurangan lemak tubuh seperti:
+
+        </p>
+        <div class="list-container">
+            <div class="list-column">
+                <ul>
+                    <li>Mudah merasa lapar, lelah dan sakit</li>
+                    <li>Luka sulit sembuh</li>
+                    <li>Rambut rontok</li>
+                </ul>
+            </div>
+            <div class="list-column">
+                <ul>
+                    <li>Kulit kering</li>
+                    <li>Kesusahan dalam konsentrasi dan mengingat</li>
+                    <li>Menstruasi tidak teratur</li>
+                </ul>
+            </div>
+        </div>
+        <p> Mungkin Anda perlu meningkatkan persentase lemak tubuh</p>
+        <p> Jika Anda merasa nyaman dengan kondisi tubuh saat ini, maka proporsi lemak tubuh ini mungkin telah ideal untuk Anda. Cukup bangun gaya hidup yang baik untuk menjaga dan mempertahankan kebugaran dan kesehatan tubuh.
+        </p>
+        <p> Jika Anda merupakan seorang atlet, Anda mungkin perlu sedikit menurunkan persentase lemak tubuh menjadi 6-13% untuk laki-laki, atau 14-20% untuk perempuan. Hal ini dikarenakan lemak tubuh non-esensial yang berlebih dapat memperlambat performa atlet. Untuk mencapai dan mempertahankan kadar lemak tubuh yang rendah, atlet perlu menjaga keseimbangan antara energi yang masuk dan keluar. Caranya dengan meningkatkan pengeluaran energi dan menurunkan asupan kalori.
+        </p>
+    </section>
+
+    <section>
+        <h2>Gaya Hidup untuk Mengurangi Lemak Tubuh</h2>
+        <div class="kontainer">
+            <div class="kartu">
+                <img src="https://i.pinimg.com/736x/cf/c5/08/cfc508820dc14a4c8e34df90a353d4aa.jpg" alt="Olahraga">
+                <h3>Olahraga Rutin</h3>
+                <p> Tingkatkan olahraga rutin, batasi tidur berlebihan, dan kurangi aktivitas pasif untuk mencegah penumpukan lemak tubuh.</p>
+            </div>
+            <div class="kartu">
+                <img src="https://i.pinimg.com/736x/78/68/54/786854dedd1d2b66613c8178cd44df76.jpg" alt="Makanan Sehat">
+                <h3>Makanan Sehat</h3>
+                <p>Atur pola makan, konsumsi sayur-buah, batasi gula, garam, dan lemak berlebih untuk menurunkan berat badan efektif.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Rekomendasi Video YouTube untuk Mengurangi Lemak Tubuh</h2>
+        <p>Berikut adalah rekomendasi video olahraga dan makanan untuk Anda:</p>
+        <div class="youtube-grid">
+            <!-- Video Olahraga -->
+            <div class="video-card">
+                <h3>Yuk Lakukan Senam Aerobik Hanya 15 Menit Untuk Membakar Lemak Tubuh!</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/y5OabVgga0E" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-card">
+                <h3>15 Menit Workout Membakar Lemak Seluruh Tubuh dengan Efektif!</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/yw7JCCZ0SMU" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-card">
+                <h3>All Body Fats Will Be Gone With This 15 Minutes Full Body Workout</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/sSKwfmFofn0" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <!-- Video Makanan -->
+            <div class="video-card">
+                <h3>7 Strategi SINGKAT Diet Bakar Lemak</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/k1r8kYrTadw" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-card">
+                <h3>The #1 Diet to Lose Fat (FOR GOOD!)</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/_nR1juKxIRM" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-card">
+                <h3>10 Makanan Pembakar Lemak yang Harus Kamu Konsumsi Saat Menurunkan Berat Badan</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/wmabD7cNghs" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <h2>Gaya Hidup untuk Menjaga Lemak Tubuh</h2>
+        <div class="kontainer">
+            <div class="kartu">
+                <img src="https://i.pinimg.com/736x/cf/c5/08/cfc508820dc14a4c8e34df90a353d4aa.jpg" alt="Olahraga">
+                <h3>Olahraga Rutin</h3>
+                <p> Anda bisa melakukan olahraga yang melatih keseimbangan, kekuatan, kelenturan, kecepatan (lari), kelincahan, serta daya tahan jantung dan paru-paru. Anda dapat mengeksplor berbagai jenis olahraga. Pilihlah olahraga yang sesuai dengan kesukaan dan kemampuan tubuh..</p>
+            </div>
+            <div class="kartu">
+                <img src="https://i.pinimg.com/736x/78/68/54/786854dedd1d2b66613c8178cd44df76.jpg" alt="Makanan Sehat">
+                <h3>Makanan Sehat</h3>
+                <p>Mengonsumsi berbagai makanan dari 5 kelompok makanan utama bertujuan menyediakan berbagai nutrisi yang berbeda untuk tubuh, meningkatkan kesehatan dan dapat membantu mengurangi risiko penyakit.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Rekomendasi Video YouTube untuk Menjaga Lemak Tubuh</h2>
+        <p>Berikut adalah rekomendasi video olahraga dan makanan untuk Anda:</p>
+        <div class="youtube-grid">
+            <!-- Video Olahraga -->
+            <div class="video-card">
+                <h3>Jarang Olahraga? Lakukan 10 Menit Stretching Full Body ini!</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/pi5WhX24uS4" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-card">
+                <h3>Tanpa Lompat, Tanpa Alat. 30 MENIT OLAHRAGA SELURUH TUBUH!</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/g29CLulF52w" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-card">
+                <h3>Latihan Otot Seluruh Tubuh Dengan Dumbell | Home Workout</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/DXjpcG2y7ek" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-card">
+                <h3>MELATIH SEMUA OTOT DENGAN DUA DUMBBELL</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/oMOrlvli-40" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <!-- Video Makanan -->
+            <div class="video-card">
+                <h3>Isi Piringku</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/0vLwWqIwe50" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-card">
+                <h3>Menu Makan Sehat yang Direkomendasikan Dokter Gizi | Hidup Sehat tvOne</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/4sbeZRvQYZ0" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-card">
+                <h3>ADE RAI kasih edukasi soal POLA MAKAN SEHAT</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/sSSYm43HbBI" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- Section: Gaya Hidup Sehat -->
+    <section>
+        <h2>Gaya Hidup untuk Meningkatkan Lemak Tubuh</h2>
+        <div class="kontainer">
+            <div class="kartu">
+                <img src="https://i.pinimg.com/736x/cf/c5/08/cfc508820dc14a4c8e34df90a353d4aa.jpg" alt="Olahraga">
+                <h3>Olahraga Rutin</h3>
+                <p>Angkat beban dan kalistenik efektif meningkatkan massa otot, kekuatan, dan keseimbangan.</p>
+            </div>
+            <div class="kartu">
+                <img src="https://i.pinimg.com/736x/78/68/54/786854dedd1d2b66613c8178cd44df76.jpg" alt="Makanan Sehat">
+                <h3>Makanan Sehat</h3>
+                <p>Lemak sehat dan vitamin A, D, E, K dari ikan, alpukat, sayuran, telur, dan susu efektif meningkatkan lemak tubuh.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Rekomendasi Video YouTube untuk Meningkatkan Lemak Tubuh</h2>
+        <p>Berikut adalah rekomendasi video olahraga dan makanan untuk Anda:</p>
+        <div class="youtube-grid">
+            <!-- Video Olahraga -->
+            <div class="video-card">
+                <h3>15 Menit Olahraga Menambah Berat Badan dan Melatih Massa Otot!</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/GR5A8RHxRAw" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-card">
+                <h3>10 Menit Olahraga Menaikkan Massa Otot untuk Kamu yang Kurus!</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/74J7ZSOB_gQ" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-card">
+                <h3>Latihan Otot Seluruh Tubuh Dengan Dumbell</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/DXjpcG2y7ek" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <!-- Video Makanan -->
+            <div class="video-card">
+                <h3>8 CHEAP FOODS FOR WEIGHT GAIN</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/CapeCyFKokc" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-card">
+                <h3>Cara Menaikkan Berat Badan Dengan Cepat dan Sehat (1 Minggu Naik 5 kg)</h3>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/2_NeA-plyxA" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+    
+    
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 BodyMap. Seluruh hak cipta dilindungi.</p>
+    </footer>
+
+</body>
+</html>

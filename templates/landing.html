@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BodyMap - Kenali Peta Tubuhmu</title>
+    <!-- Google Fonts Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset default margin dan padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f8f8;
+            color: #333;
+            height: 100%;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            max-width: 2000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Logo di pojok kiri atas */
+        .logo-container {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+        }
+
+        .logo-img {
+            width: 40px; /* Ukuran logo yang lebih kecil */
+            height: auto;
+        }
+
+        /* Header Section */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, #e0f5f7, #ffffff);
+            padding: 40px 20px;
+            border-radius: 10px;
+        }
+
+        .header-content {
+            max-width: 50%;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: #000;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header h2 {
+            font-size: 1.8rem;
+            color: #5b2e81;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .header p {
+            color: #555;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #b569d4;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+
+        .cta-button:hover {
+            background-color: #8e4ba9;
+        }
+
+        .header img {
+            width: 300px; /* Ukuran Lebar */
+            height: 400px; /* Tinggi Sesuai Rasio 3:4 */
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* Layout Konten Utama */
+        .content-section {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            margin-top: 50px;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .item img {
+            width: 50%; /* Setengah halaman */
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .item .text-content {
+            width: 50%; /* Setengah halaman */
+            padding: 30px;
+        }
+
+        .text-content h3 {
+            font-size: 1.8rem;
+            color: #5b2e81;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .text-content p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* Untuk gambar di kanan */
+        .item.reverse {
+            flex-direction: row-reverse;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #333;
+        }
+
+        .footer h2 {
+            font-size: 2rem;
+            color: #5b2e81;
+            font-weight: 700;
+        }
+
+        .footer p {
+            font-size: 1.1rem;
+            color: #1d6d67;
+            margin-top: 5px;
+        }
+
+        /* Copyright Section */
+        .copyright {
+            background-color: #20c8c4; /* Toska */
+            text-align: center;
+            padding: 15px 10px;
+            color: #fff;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        /* Responsif */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header img {
+                margin-top: 20px;
+                width: 75%;
+                height: auto;
+            }
+
+            .item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .item img {
+                width: 100%;
+                height: 200px;
+            }
+
+            .item .text-content {
+                width: 100%;
+            }
+
+            .item.reverse {
+                flex-direction: column;
+            }
+
+            .logo-container {
+                position: static;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Container Utama -->
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='image/logobodymap.png') }}" alt="BodyMap Logo" class="logo-img">
+        </div>
+
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>BodyMap</h1>
+                <h2>Kenali Peta Tubuhmu, Temukan Jalan Sehatmu</h2>
+                <p>Gunakan website kami untuk menganalisis persentase lemak tubuh dan dapatkan rekomendasi hidup sehat.</p>
+                <a href="{{ url_for('home') }}" class="cta-button">Get Started</a>
+            </div>
+            <img src="https://i.pinimg.com/736x/26/1c/c2/261cc268fdb0c24eb9480ebb16f1e0ff.jpg" alt="Header Image">
+        </header>
+
+        <!-- Layout Konten Utama -->
+        <section class="content-section">
+            <!-- Item 1 -->
+            <div class="item">
+                <img src="https://i.pinimg.com/736x/19/35/8e/19358ee0d2645e98803a5b1797720b15.jpg" alt="Indikator Kesehatan">
+                <div class="text-content">
+                    <h3>Indikator Kesehatan</h3>
+                    <p>BodyMap dapat digunakan sebagai indikator kesehatan tubuh yang terpercaya dengan menganalisis persentase lemak tubuh.</p>
+                </div>
+            </div>
+
+            <!-- Item 2 (Gambar di Kanan) -->
+            <div class="item reverse">
+                <img src="https://i.pinimg.com/736x/de/74/36/de7436c1960b4b81818d3b3c91c9fb79.jpg" alt="Komposisi Tubuh">
+                <div class="text-content">
+                    <h3>Pemantau Komposisi Tubuh</h3>
+                    <p>Amati perubahan komposisi tubuh dari waktu ke waktu untuk menjaga keseimbangan komposisi tubuh.</p>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="item">
+                <img src="https://i.pinimg.com/736x/ca/7b/83/ca7b83180931dbedb9a7a365816f681b.jpg" alt="Kualitas Hidup">
+                <div class="text-content">
+                    <h3>Optimalisasi Kualitas Hidup</h3>
+                    <p>Dapatkan rekomendasi gaya hidup sehat untuk membantu meningkatkan kemampuan fisik dan kualitas hidup.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <h2>BodyMap.</h2>
+            <p>Kenali Peta Tubuhmu, Temukan Jalan Sehatmu</p>
+        </footer>
+
+        <!-- Copyright Section -->
+        <div class="copyright">
+            © 2024 BodyMap. All Rights Reserved.
+        </div>
+    </div>
+</body>
+</html>
